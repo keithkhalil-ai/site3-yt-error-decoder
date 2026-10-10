@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YouTube Error Decoder — Translate YouTube Error Codes Into Plain English</title>
+<meta name="description" content="Paste any YouTube error message or numeric code (400, 403, 429, 500, “Video unavailable”, “Audio rendering error”, upload stuck at 95%) and get the real cause plus step-by-step fixes. Free, offline, no sign-up.">
+<meta name="keywords" content="youtube error decoder, youtube error 400, youtube error 403, youtube error 429, youtube error 500, video unavailable youtube, audio rendering error, upload stuck at 95 percent, youtube playback error, youtube upload rejected, youtube error code lookup">
+<meta name="author" content="YouTube Error Decoder">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0a0d13">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23ff3b4e'/%3E%3Cpath d='M26 20l18 12-18 12z' fill='%23fff'/%3E%3C/svg%3E">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="YouTube Error Decoder">
+<meta property="og:title" content="YouTube Error Decoder — Plain-English Causes &amp; Fixes">
+<meta property="og:description" content="Paste a YouTube error message or code and instantly get the cause plus concrete fix steps. Handles fuzzy and partial matches.">
+<meta property="og:url" content="https://example.com/youtube-error-decoder/">
+<meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'%3E%3Crect width='1200' height='630' fill='%230a0d13'/%3E%3Ctext x='60' y='330' font-family='Arial' font-size='72' fill='%23e7ecf5'%3EYouTube Error Decoder%3C/text%3E%3C/svg%3E">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="YouTube Error Decoder">
+<meta name="twitter:description" content="Decode any YouTube error message or numeric code into a plain-English cause and concrete fix steps.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "YouTube Error Decoder",
+  "url": "https://example.com/youtube-error-decoder/",
+  "applicationCategory": "UtilitiesApplication",
+  "applicationSubCategory": "Troubleshooting Reference",
+  "operatingSystem": "Any (web browser)",
+  "browserRequirements": "Requires JavaScript. Works fully offline.",
+  "isAccessibleForFree": true,
+  "inLanguage": "en",
+  "description": "Paste a YouTube error message or numeric code such as 400, 403, 429, 500, 'Video unavailable', 'Audio rendering error' or 'Upload stuck at 95%' and receive the plain-English cause plus concrete, ordered fix steps. Supports fuzzy and partial matching and lists every recognized code when input is unknown.",
+  "featureList": [
+    "Fuzzy and partial matching of YouTube error text and numeric codes",
+    "Plain-English explanation of the root cause",
+    "Ordered, concrete fix steps for each error",
+    "Severity and category classification",
+    "Browseable index of all recognized YouTube errors",
+    "Graceful handling of empty or unrecognized input"
+  ],
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  :root{
+    --bg:#0a0d13;
+    --panel:#11151e;
+    --panel2:#161c28;
+    --line:#222b3c;
+    --line-soft:#1a2130;
+    --text:#e8edf6;
+    --muted:#8c98ae;
+    --muted2:#5f6b80;
+    --accent:#ff3b4e;
+    --accent2:#ff7a45;
+    --ok:#3ddc97;
+    --warn:#ffb020;
+    --bad:#ff5f5f;
+    --radius:16px;
+  }
+  html,body{margin:0;padding:0}
+  body{
+    background:
+      radial-gradient(900px 500px at 12% -8%, rgba(255,59,78,.13), transparent 60%),
+      radial-gradient(800px 480px at 92% 4%, rgba(255,122,69,.09), transparent 62%),
+      var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  .wrap{max-width:780px;margin:0 auto;padding:26px 18px 60px}
+
+  /* ---------- header ---------- */
+  header.top{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+  .mark{
+    width:42px;height:42px;border-radius:12px;flex:0 0 auto;
+    background:linear-gradient(150deg,var(--accent),var(--accent2));
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 20px rgba(255,59,78,.28);
+  }
+  .mark svg{width:20px;height:20px;display:block}
+  .brand{font-weight:700;letter-spacing:-.2px;font-size:15px}
+  .brand span{display:block;font-weight:500;font-size:11.5px;color:var(--muted2);letter-spacing:.4px;text-transform:uppercase}
+
+  h1{
+    font-size:clamp(26px,5.4vw,38px);
+    line-height:1.15;letter-spacing:-.9px;margin:0 0 10px;font-weight:800;
+  }
+  h1 em{font-style:normal;background:linear-gradient(92deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lede{color:var(--muted);font-size:15.5px;margin:0 0 22px;max-width:62ch}
+
+  /* ---------- cards ---------- */
+  .card{
+    background:linear-gradient(180deg,var(--panel) 0%,#0f131c 100%);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:18px;
+    box-shadow:0 18px 44px rgba(0,0,0,.42);
+  }
+  label.lbl{display:block;font-size:12px;letter-spacing:.9px;text-transform:uppercase;color:var(--muted2);font-weight:700;margin-bottom:8px}
+  textarea{
+    width:100%;min-height:88px;resize:vertical;
+    background:#0b0f17;color:var(--text);
+    border:1px solid var(--line);border-radius:12px;
+    padding:13px 14px;font-size:15.5px;font-family:inherit;line-height:1.5;
+    transition:border-color .15s, box-shadow .15s;
+  }
+  textarea::placeholder{color:#4d5769}
+  textarea:focus{outline:none;border-color:rgba(255,59,78,.65);box-shadow:0 0 0 3px rgba(255,59,78,.14)}
+
+  .examples{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px;align-items:center}
+  .examples .hint{font-size:11.5px;color:var(--muted2);text-transform:uppercase;letter-spacing:.7px;font-weight:700;margin-right:2px}
+  .chip{
+    background:#151b27;border:1px solid var(--line);color:#b9c4d6;
+    border-radius:999px;padding:5px 11px;font-size:12.5px;cursor:pointer;
+    font-family:inherit;transition:.14s;white-space:nowrap;
+  }
+  .chip:hover{border-color:rgba(255,59,78,.55);color:#fff;background:#1b2130;transform:translateY(-1px)}
+
+  .btn{
+    width:100%;margin-top:14px;border:0;cursor:pointer;
+    background:linear-gradient(96deg,var(--accent),var(--accent2));
+    color:#fff;font-weight:750;font-size:16px;letter-spacing:.2px;
+    padding:14px 18px;border-radius:12px;font-family:inherit;
+    box-shadow:0 10px 26px rgba(255,59,78,.26);
+    transition:transform .12s, box-shadow .12s, filter .12s;
+  }
+  .btn:hover{transform:translateY(-1px);box-shadow:0 14px 30px rgba(255,59,78,.34);filter:saturate(1.08)}
+  .btn:active{transform:translateY(0)}
+  .btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+
+  .err-inline{
+    display:none;margin-top:10px;font-size:13.5px;color:#ffb3b3;
+    background:rgba(255,95,95,.09);border:1px solid rgba(255,95,95,.3);
+    border-radius:10px;padding:9px 12px;
+  }
+  .err-inline.show{display:block}
+
+  /* ---------- results ---------- */
+  #results{margin-top:18px}
+  .result{
+    background:linear-gradient(180deg,var(--panel2) 0%,#10141d 100%);
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px 18px;animation:rise .28s ease both;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .rhead{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-bottom:12px}
+  .pill{
+    font-size:11px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;
+    padding:4px 9px;border-radius:999px;border:1px solid;
+  }
+  .sev-high{color:#ff9a9a;border-color:rgba(255,95,95,.4);background:rgba(255,95,95,.1)}
+  .sev-medium{color:#ffd08a;border-color:rgba(255,176,32,.38);background:rgba(255,176,32,.1)}
+  .sev-low{color:#8fe9c4;border-color:rgba(61,220,151,.35);background:rgba(61,220,151,.09)}
+  .cat{color:#a9b6cd;border-color:var(--line);background:#151b27}
+  .code{
+    margin-left:auto;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:12px;color:#cfd8e8;background:#0c1017;border:1px solid var(--line);
+    padding:4px 9px;border-radius:8px;
+  }
+  .result h2{margin:0 0 8px;font-size:21px;letter-spacing:-.4px;line-height:1.25}
+  .cause{margin:0 0 16px;color:#c3cddd;font-size:15px}
+  .cause b{color:#fff;font-weight:650}
+  h3.sec{
+    font-size:11.5px;letter-spacing:1.1px;text-transform:uppercase;color:var(--muted2);
+    margin:0 0 9px;font-weight:800;
+  }
+  ol.fixes{margin:0 0 16px;padding-left:0;list-style:none;counter-reset:f}
+  ol.fixes li{
+    counter-increment:f;position:relative;padding:9px 0 9px 36px;
+    border-top:1px solid var(--line-soft);font-size:14.6px;color:#d3dbe9;
+  }
+  ol.fixes li:first-child{border-top:0}
+  ol.fixes li::before{
+    content:counter(f);position:absolute;left:0;top:9px;
+    width:23px;height:23px;border-radius:7px;
+    background:#1a2130;border:1px solid var(--line);
+    color:#ff8b96;font-size:12px;font-weight:800;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .related{display:flex;flex-wrap:wrap;gap:7px;align-items:center;padding-top:4px}
+  .related .hint{font-size:11.5px;color:var(--muted2);text-transform:uppercase;letter-spacing:.7px;font-weight:700}
+  .conf{
+    margin-top:14px;font-size:12px;color:var(--muted2);
+    border-top:1px dashed var(--line);padding-top:10px;
+    display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  }
+  .conf b{color:#9fb0c9;font-weight:700}
+
+  .unknown{
+    background:linear-gradient(180deg,var(--panel2) 0%,#10141d 100%);
+    border:1px solid var(--line);border-radius:var(--radius);padding:20px 18px;
+    animation:rise .28s ease both;
+  }
+  .unknown h2{margin:0 0 8px;font-size:20px}
+  .unknown p{color:#c3cddd;font-size:14.8px;margin:0 0 14px}
+  .unknown .echo{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;
+    background:#0c1017;border:1px solid var(--line);border-radius:8px;padding:8px 10px;
+    color:#ffb3b3;margin-bottom:14px;word-break:break-word;
+  }
+  .grid-chips{display:flex;flex-wrap:wrap;gap:7px}
+
+  /* ---------- browse ---------- */
+  details.browse{
+    margin-top:22px;background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);padding:14px 16px;
+  }
+  details.browse summary{
+    cursor:pointer;font-weight:700;font-size:14px;list-style:none;
+    display:flex;align-items:center;gap:9px;color:#dbe3f0;
+  }
+  details.browse summary::-webkit-details-marker{display:none}
+  details.browse summary::before{
+    content:"+";width:20px;height:20px;border-radius:6px;flex:0 0 auto;
+    background:#1a2130;border:1px solid var(--line);color:#ff8b96;
+    display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;
+  }
+  details.browse[open] summary::before{content:"–"}
+  details.browse .body{margin-top:14px;padding-top:14px;border-top:1px solid var(--line-soft)}
+  .browsecard{
+    border-top:1px solid var(--line-soft);padding:11px 0;
+  }
+  .browsecard:first-of-type{border-top:0}
+  .browsecard .bt{display:flex;gap:9px;align-items:baseline;flex-wrap:wrap}
+  .browsecard .bc{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;
+    color:#ff8b96;background:rgba(255,59,78,.09);border:1px solid rgba(255,59,78,.24);
+    padding:2px 7px;border-radius:6px;white-space:nowrap;
+  }
+  .browsecard .bn{font-weight:650;font-size:14.5px}
+  .browsecard .bd{color:var(--muted);font-size:13.4px;margin:5px 0 0}
+
+  footer.note{
+    margin-top:26px;text-align:center;color:var(--muted2);font-size:12.4px;line-height:1.7;
+  }
+  footer.note a{color:#8c98ae}
+
+  @media (max-width:520px){
+    .wrap{padding:20px 14px 48px}
+    .card{padding:15px}
+    .result,.unknown{padding:16px 14px}
+    .code{margin-left:0}
+    h1{letter-spacing:-.5px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M9 6.5l9 5.5-9 5.5V6.5z" fill="#fff"/></svg>
+    </div>
+    <div class="brand">YouTube Error Decoder<span>Troubleshooting reference</span></div>
+  </header>
+
+  <h1>What does that <em>YouTube error</em> actually mean?</h1>
+  <p class="lede">Paste the exact message or numeric code you saw — partial text is fine. You’ll get the real cause and the concrete steps that fix it, in order.</p>
+
+  <div class="adslot" style="margin:16px 0;min-height:90px;border:1px dashed #2a3140;
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+  color:#5b6577;font-size:12px">Advertisement</div>
+
+  <main class="card">
+    <form id="decodeForm" novalidate>
+      <label class="lbl" for="errInput">YouTube error message or code</label>
+      <textarea id="errInput" name="errInput" spellcheck="false" autocomplete="off"
+        placeholder="e.g.  Video unavailable&#10;      Audio rendering error&#10;      429 Too Many Requests&#10;      Upload stuck at 95%"></textarea>
+
+      <div class="examples" aria-label="Example inputs">
+        <span class="hint">Try</span>
+        <button type="button" class="chip" data-ex="400">400</button>
+        <button type="button" class="chip" data-ex="403 Forbidden">403 Forbidden</button>
+        <button type="button" class="chip" data-ex="429 Too Many Requests">429 Too Many Requests</button>
+        <button type="button" class="chip" data-ex="500 Internal Server Error">500</button>
+        <button type="button" class="chip" data-ex="Audio rendering error">Audio rendering error</button>
+        <button type="button" class="chip" data-ex="Video unavailable">Video unavailable</button>
+        <button type="button" class="chip" data-ex="Upload stuck at 95%">Stuck at 95%</button>
+      </div>
+
+      <button class="btn" type="submit" id="decodeBtn">Decode this error</button>
+      <div class="err-inline" id="inlineErr" role="alert"></div>
+    </form>
+  </main>
+
+  <div class="adslot" style="margin:16px 0;min-height:90px;border:1px dashed #2a3140;
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+  color:#5b6577;font-size:12px">Advertisement</div>
+
+  <section id="results" aria-live="polite"></section>
+
+  <details class="browse" id="browse">
+    <summary>Browse all recognized errors (<span id="errCount">0</span>)</summary>
+    <div class="body" id="browseBody"></div>
+  </details>
+
+  <footer class="note">
+    Runs entirely in your browser — nothing is uploaded, stored, or sent anywhere.<br>
+    Independent reference tool. Not affiliated with, endorsed by, or sponsored by YouTube or Google.
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ------------------------------------------------------------------
+     Error knowledge base
+  ------------------------------------------------------------------ */
+  var ERRORS = [
+    {
+      code: "HTTP 400",
+      title: "400 Bad Request",
+      cat: "Request / Session",
+      sev: "medium",
+      cause: "YouTube’s servers received a request they considered malformed. In practice this almost always means a stale session, corrupted cookies, or a broken URL parameter — not a problem with the video itself.",
+      fixes: [
+        "Clear cookies and site data for youtube.com, then reload the page.",
+        "Hard-refresh with Ctrl+F5 (Windows) or Cmd+Shift+R (Mac) to discard cached request data.",
+        "Sign out of YouTube and sign back in to issue a fresh session token.",
+        "Disable extensions that rewrite URLs or block scripts (ad blockers, VPN extensions, downloaders) and retry.",
+        "On mobile: force-stop the YouTube app and clear its cache (Android: Settings › Apps › YouTube › Storage › Clear cache)."
+      ],
+      keys: ["400", "bad request", "error 400", "http 400", "400 error", "malformed request"]
+    },
+    {
+      code: "HTTP 403",
+      title: "403 Forbidden",
+      cat: "Access / Permissions",
+      sev: "high",
+      cause: "The request was understood but refused. Usually a region block, an age gate, a network-level block (school or office firewall), or a VPN/proxy that YouTube has flagged.",
+      fixes: [
+        "Turn off any VPN or proxy and reload — YouTube blocks many datacenter IP ranges.",
+        "If the video is age-restricted, sign in with an account that has a verified age.",
+        "Try a different network (mobile data instead of Wi-Fi) to rule out a firewall.",
+        "Sign out, clear youtube.com cookies, then sign in again.",
+        "If it only happens in one browser, test in an incognito window with extensions disabled."
+      ],
+      keys: ["403", "forbidden", "error 403", "http 403", "403 forbidden", "access denied", "you do not have permission"]
+    },
+    {
+      code: "HTTP 404",
+      title: "404 Not Found",
+      cat: "Content",
+      sev: "medium",
+      cause: "The video ID in the URL does not resolve to anything. The video was deleted, made private, the URL is mistyped, or the uploader changed it.",
+      fixes: [
+        "Search YouTube for the video title to find the current URL.",
+        "Check for typos or extra characters in the video ID (the part after ?v=).",
+        "If the link came from a chat or an old bookmark, ask the uploader for a fresh one.",
+        "Open the channel page — if the whole channel 404s, it was terminated."
+      ],
+      keys: ["404", "not found", "error 404", "http 404", "page not found", "video not found"]
+    },
+    {
+      code: "HTTP 429",
+      title: "429 Too Many Requests",
+      cat: "Rate limiting",
+      sev: "medium",
+      cause: "You — or everyone sharing your IP address — have sent too many requests in a short window. YouTube throttles the IP, not the account.",
+      fixes: [
+        "Stop refreshing and wait 15–60 minutes before trying again.",
+        "Avoid rapid page reloads, playlist scrubbing, or automated tools and scripts.",
+        "If you are on a shared or public network, switch to a different connection.",
+        "Sign in — authenticated requests often get a higher rate limit.",
+        "If you run a bot or scraper, add delays and respect the limits; repeated 429s can escalate to a temporary IP ban."
+      ],
+      keys: ["429", "too many requests", "error 429", "http 429", "rate limit", "rate limited", "throttled", "slow down"]
+    },
+    {
+      code: "HTTP 500",
+      title: "500 Internal Server Error",
+      cat: "YouTube server",
+      sev: "medium",
+      cause: "Something broke on YouTube’s side while handling your request. Nothing is wrong with your device, your browser, or the video.",
+      fixes: [
+        "Wait a few minutes and retry — most 500s clear on their own.",
+        "Check a status tracker (for example downdetector.com/status/youtube) to confirm an outage.",
+        "Clear your browser cache and cookies for youtube.com, then reload.",
+        "Try a different browser or the YouTube app to see whether it is account- or device-specific.",
+        "If it persists for hours, report it with the Send feedback link at the bottom of YouTube."
+      ],
+      keys: ["500", "internal server error", "error 500", "http 500", "server error", "youtube is down"]
+    },
+    {
+      code: "HTTP 502 / 503 / 504",
+      title: "Bad Gateway, Service Unavailable, Gateway Timeout",
+      cat: "YouTube server",
+      sev: "medium",
+      cause: "A gateway or upstream service in YouTube’s infrastructure is overloaded or temporarily down. 502 = bad gateway, 503 = service unavailable, 504 = gateway timeout.",
+      fixes: [
+        "Retry after a short wait — these are transient by nature.",
+        "Reload the page once; do not hammer refresh, it makes throttling worse.",
+        "Try the YouTube mobile app or a different device.",
+        "Check whether other sites are also failing — that points to your network, not YouTube.",
+        "If it lasts more than an hour it is a YouTube-side incident; there is nothing to fix locally."
+      ],
+      keys: ["502", "503", "504", "bad gateway", "service unavailable", "gateway timeout", "error 502", "error 503", "error 504", "temporarily unavailable"]
+    },
+    {
+      code: "Playback",
+      title: "Audio rendering error",
+      cat: "Playback / Audio",
+      sev: "medium",
+      cause: "The browser or operating system failed to hand the audio stream to an output device. Common triggers: too many audio contexts, a disconnected Bluetooth device, a hardware-acceleration bug, or a missing codec.",
+      fixes: [
+        "Reload the page — this resets the audio context.",
+        "Check your system output device and volume; reconnect Bluetooth headphones if you use them.",
+        "Close other tabs and apps that are playing audio — each one holds an audio context.",
+        "Disable hardware acceleration: Chrome › Settings › System › “Use hardware acceleration when available”.",
+        "Update your browser, or try a different one (Chrome and Edge handle YouTube audio best).",
+        "On Windows, restart the Windows Audio service (services.msc › Windows Audio › Restart)."
+      ],
+      keys: ["audio rendering error", "audio render", "audio error", "no sound", "sound not working", "audio playback error", "audio output"]
+    },
+    {
+      code: "Generic",
+      title: "“An error occurred, please try again later”",
+      cat: "Generic / Transient",
+      sev: "low",
+      cause: "YouTube’s catch-all message for a request that failed without a specific reason. It is usually a transient network or session hiccup rather than a real fault.",
+      fixes: [
+        "Simply retry — most of these resolve on the second attempt.",
+        "Check your connection and reload the page.",
+        "Clear youtube.com cookies and cache, then sign in again.",
+        "Update the YouTube app if you are on mobile.",
+        "If it repeats constantly on one network, try another network or disable your VPN."
+      ],
+      keys: ["an error occurred", "please try again later", "error occurred try again", "something went wrong", "whoops something went wrong", "generic error", "try again later"]
+    },
+    {
+      code: "Upload",
+      title: "“Your upload was rejected”",
+      cat: "Upload / Policy",
+      sev: "high",
+      cause: "YouTube’s automated or manual review blocked the upload. Typical reasons: copyrighted audio or video, misleading metadata, spam patterns, or a community-guidelines violation.",
+      fixes: [
+        "Check the email sent to your channel address — it names the specific policy that was violated.",
+        "Remove or replace copyrighted music or video; use the YouTube Audio Library for safe tracks.",
+        "Rewrite the title, description and tags so they are not misleading or spammy.",
+        "Re-upload after fixing the issue — repeated rejections can limit future uploads.",
+        "If you believe it is a mistake, use the appeal link in the rejection email."
+      ],
+      keys: ["upload rejected", "your upload was rejected", "upload was rejected", "rejected upload", "upload blocked", "video rejected", "upload failed"]
+    },
+    {
+      code: "Playback",
+      title: "“Video unavailable” / playback error",
+      cat: "Playback",
+      sev: "high",
+      cause: "The player cannot start the stream. The video may be deleted, private, region-blocked or age-gated — or your connection to YouTube’s CDN is being interrupted.",
+      fixes: [
+        "Search for the video title — if it is gone from search, it was removed or made private.",
+        "Disable any VPN or proxy; geo-blocks are the most common cause.",
+        "Open the video in an incognito window with extensions disabled.",
+        "Clear the youtube.com cache and cookies, then reload.",
+        "Update the YouTube app, or switch to a desktop browser.",
+        "Test another video — if everything fails, it is your network or DNS, not the video."
+      ],
+      keys: ["video unavailable", "playback error", "this video is unavailable", "video not available", "playback failed", "cant play this video", "unable to play video", "video wont play"]
+    },
+    {
+      code: "Device",
+      title: "“This video is unavailable on this device”",
+      cat: "Device / App",
+      sev: "medium",
+      cause: "The app or device you are using is not allowed to play this particular stream — often a DRM/Widevine issue, an unsupported codec, or a smart-TV app limitation.",
+      fixes: [
+        "Update the YouTube app to the latest version.",
+        "Open the video in a desktop or mobile web browser instead.",
+        "Enable protected content: Chrome › Settings › Privacy and security › Site settings › Additional content settings › Protected content › “Allow sites to play protected content”.",
+        "Cast the video from your phone to the TV instead of using the TV app.",
+        "Check YouTube’s supported-devices list — some older smart TVs and consoles are no longer supported."
+      ],
+      keys: ["unavailable on this device", "not available on this device", "this device", "device not supported", "unsupported device", "smart tv", "console"]
+    },
+    {
+      code: "Upload",
+      title: "Upload stuck at 95% / still processing",
+      cat: "Upload / Processing",
+      sev: "low",
+      cause: "The file finished uploading and YouTube is now transcoding it into multiple resolutions. Long or high-resolution videos queue behind other jobs, so 95% can sit for a while.",
+      fixes: [
+        "Wait — HD and 4K uploads commonly take 30 minutes to several hours to process.",
+        "Keep the original file on your device; do not delete it until processing finishes.",
+        "Check YouTube Studio › Content › Videos to watch the processing bar.",
+        "Do not close the tab or app while it is processing.",
+        "If it is stuck for more than 24 hours, delete the draft and re-upload (try a lower resolution first).",
+        "Upload during off-peak hours — processing queues are shorter."
+      ],
+      keys: ["stuck at 95", "95%", "upload stuck", "still processing", "processing video", "upload processing", "processing stuck", "video processing", "processing"]
+    },
+    {
+      code: "Bot check",
+      title: "“Sign in to confirm you’re not a bot”",
+      cat: "Access / Bot check",
+      sev: "medium",
+      cause: "YouTube’s abuse detection flagged your traffic as automated — usually because of a datacenter IP, a VPN, or very fast repeated requests.",
+      fixes: [
+        "Sign in to your Google account and retry.",
+        "Turn off VPNs, proxies and Tor.",
+        "Slow down — stop refreshing rapidly or running scripts against YouTube.",
+        "Switch networks (for example mobile data) to get a different IP.",
+        "If you are building an integration, use the official YouTube Data API with an API key instead of scraping."
+      ],
+      keys: ["not a bot", "confirm youre not a bot", "sign in to confirm", "bot check", "captcha", "unusual traffic", "are you a robot", "automated queries"]
+    },
+    {
+      code: "Age gate",
+      title: "Age-restricted video",
+      cat: "Access / Age gate",
+      sev: "medium",
+      cause: "The uploader or YouTube marked the video as suitable only for signed-in, age-verified viewers.",
+      fixes: [
+        "Sign in with an account whose age is 18 or over.",
+        "Verify your age if your account does not have it yet.",
+        "Turn off Restricted Mode (avatar › Settings › Restricted Mode).",
+        "Use the YouTube mobile app — it handles age gates better than embedded players.",
+        "If you are under 18, the video cannot be unlocked on your account."
+      ],
+      keys: ["age restricted", "age-restricted", "restricted video", "confirm your age", "sign in to confirm your age", "inappropriate for some users", "restricted mode", "mature content"]
+    },
+    {
+      code: "Embedding",
+      title: "“Playback on other websites has been disabled by the video owner”",
+      cat: "Embedding",
+      sev: "low",
+      cause: "The uploader turned off embedding, so the video can only be watched on youtube.com and in the official apps.",
+      fixes: [
+        "Watch it directly on youtube.com instead of the third-party site.",
+        "Ask the uploader to enable embedding if you need it on your site.",
+        "Use YouTube’s official embed player rather than a third-party wrapper.",
+        "Link to the video instead of embedding it."
+      ],
+      keys: ["playback on other websites", "embedding disabled", "embed disabled", "disabled by the video owner", "embedding has been disabled", "embed not allowed"]
+    },
+    {
+      code: "App",
+      title: "“The following content is not available on this app”",
+      cat: "Device / App",
+      sev: "medium",
+      cause: "The specific app you are using is not licensed or capable of playing that stream — common on older smart-TV apps, game consoles and third-party YouTube clients.",
+      fixes: [
+        "Update the app, or uninstall and reinstall it.",
+        "Open the video in a mobile or desktop browser.",
+        "Cast from the YouTube app on your phone.",
+        "Third-party clients are unsupported — use the official app."
+      ],
+      keys: ["not available on this app", "content is not available on this app", "not available in this app", "app not supported", "this app"]
+    },
+    {
+      code: "Codec",
+      title: "“Your browser does not currently recognize any of the video formats available”",
+      cat: "Playback / Codec",
+      sev: "medium",
+      cause: "The browser cannot decode any of the streams YouTube offered. Usually an outdated browser, JavaScript disabled, or a missing or disabled codec/DRM module.",
+      fixes: [
+        "Update your browser to the latest version.",
+        "Make sure JavaScript is enabled for youtube.com.",
+        "Enable protected content / Widevine in your browser settings.",
+        "Disable extensions that block media or scripts, then reload.",
+        "Try Chrome, Edge or Firefox — all support YouTube’s formats."
+      ],
+      keys: ["does not currently recognize", "video formats available", "no video formats", "codec not supported", "unsupported format", "cannot play video formats", "recognize any of the video formats"]
+    },
+    {
+      code: "Player",
+      title: "“An error occurred while initializing the YouTube player” / player configuration error",
+      cat: "Playback / Player",
+      sev: "medium",
+      cause: "The embedded player failed to boot — often a blocked script, a bad embed parameter, an ad blocker, or a conflicting extension.",
+      fixes: [
+        "Reload the page to re-initialize the player.",
+        "Disable ad blockers and privacy extensions for that page.",
+        "Clear cache and cookies for the site hosting the video.",
+        "Check the embed code for typos in the video ID or parameters.",
+        "Update your browser — older versions miss newer player APIs."
+      ],
+      keys: ["initializing the youtube player", "player configuration error", "error occurred while initializing", "player failed to load", "iframe player", "player error", "player initialization"]
+    },
+    {
+      code: "Network",
+      title: "“Connection to server lost” / network error",
+      cat: "Network",
+      sev: "medium",
+      cause: "The stream dropped because the connection to YouTube’s servers was interrupted — Wi-Fi handoff, ISP throttling, or a flaky proxy.",
+      fixes: [
+        "Check your connection and reload.",
+        "Move closer to your router or switch to a wired connection.",
+        "Lower the playback quality (gear icon › Quality › 480p or lower).",
+        "Disable VPNs and proxies, and restart your router.",
+        "Try a different browser to rule out an extension."
+      ],
+      keys: ["connection to server lost", "network error", "connection lost", "server lost", "connection interrupted", "network connection lost", "lost connection"]
+    },
+    {
+      code: "Content",
+      title: "“This video has been removed by the uploader”",
+      cat: "Content",
+      sev: "low",
+      cause: "The uploader deleted the video or the whole channel. There is no way to restore it from your side.",
+      fixes: [
+        "Search YouTube for the title in case it was re-uploaded.",
+        "Check the channel — if it is gone too, the account was terminated.",
+        "Look for archived copies on the Internet Archive (archive.org).",
+        "If it was your own video, check YouTube Studio › Content for a restored draft."
+      ],
+      keys: ["removed by the uploader", "video has been removed", "removed by uploader", "deleted video", "video removed", "terminated", "no longer available"]
+    },
+    {
+      code: "Geo-block",
+      title: "“The uploader has not made this video available in your country”",
+      cat: "Geo-block",
+      sev: "medium",
+      cause: "The rights holder limited the video to specific countries and yours is not on the list.",
+      fixes: [
+        "Use a VPN located in a country where the video is available.",
+        "Check the channel’s other videos — some are worldwide.",
+        "Ask the uploader to widen the availability.",
+        "Note that using a VPN to bypass geo-blocks may violate YouTube’s Terms of Service."
+      ],
+      keys: ["not available in your country", "not made this video available", "geo blocked", "geo-block", "country restriction", "not available in your region", "region blocked", "blocked in your country"]
+    },
+    {
+      code: "Rights",
+      title: "Copyright claim / Content ID match",
+      cat: "Rights",
+      sev: "medium",
+      cause: "A Content ID match or a manual copyright claim was filed. Depending on the policy the video is blocked, muted, monetized by the claimant, or restricted by country.",
+      fixes: [
+        "Open YouTube Studio › Content and read the claim details.",
+        "Mute or replace the disputed segment, or trim it out.",
+        "If you hold a licence, dispute the claim and provide proof.",
+        "Use YouTube’s Audio Library or properly licensed music to avoid future claims.",
+        "Wait out the claim — some expire after the dispute window closes."
+      ],
+      keys: ["copyright claim", "content id", "copyrighted", "copyright strike", "copyright", "content id claim", "blocked in your country", "copyrighted content"]
+    },
+    {
+      code: "Community",
+      title: "“Comments are turned off”",
+      cat: "Content",
+      sev: "low",
+      cause: "The uploader disabled comments on the video, or YouTube turned them off automatically because the video is popular and being targeted by spam.",
+      fixes: [
+        "Nothing to fix on the viewer side — it is the uploader’s setting.",
+        "If it is your video, re-enable comments in Studio › Content › Video › Comments.",
+        "React to the video or use the community tab instead."
+      ],
+      keys: ["comments are turned off", "comments disabled", "comments turned off", "no comments", "commenting is disabled", "comments closed"]
+    },
+    {
+      code: "Live",
+      title: "“Live chat replay is unavailable”",
+      cat: "Live",
+      sev: "low",
+      cause: "Chat replay only exists for streams where it was enabled and the archive is still within the retention window.",
+      fixes: [
+        "Check the stream page again later — replay can take time to generate.",
+        "If it is your stream, enable live chat replay in Studio before going live.",
+        "Older streams may have had their chat purged."
+      ],
+      keys: ["live chat replay", "chat replay unavailable", "live chat unavailable", "replay unavailable", "chat replay"]
+    }
+  ];
+
+  /* ------------------------------------------------------------------
+     Matching engine
+  ------------------------------------------------------------------ */
+  function norm(s) {
+    return String(s == null ? "" : s)
+      .toLowerCase()
+      .replace(/[^a-z0-9%\s]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function lev(a, b) {
+    if (a === b) return 0;
+    if (!a.length) return b.length;
+    if (!b.length) return a.length;
+    var prev = new Array(b.length + 1), cur = new Array(b.length + 1), i, j;
+    for (j = 0; j <= b.length; j++) prev[j] = j;
+    for (i = 1; i <= a.length; i++) {
+      cur[0] = i;
+      for (j = 1; j <= b.length; j++) {
+        var cost = a.charCodeAt(i - 1) === b.charCodeAt(j - 1) ? 0 : 1;
+        cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + cost);
+      }
+      var t = prev; prev = cur; cur = t;
+    }
+    return prev[b.length];
+  }
+
+  function scoreEntry(q, qt, entry) {
+    var cands = entry.keys.concat([norm(entry.title), norm(entry.code)]);
+    var best = 0;
+    for (var i = 0; i < cands.length; i++) {
+      var kw = cands[i];
+      if (!kw) continue;
+      var s = 0;
+      if (kw === q) {
+        s = 100;
+      } else if (q.indexOf(kw) !== -1) {
+        s = 56 + Math.min(kw.length, 32) * 1.15;
+      } else if (q.length >= 3 && kw.indexOf(q) !== -1) {
+        s = 46 + Math.min(q.length, 26);
+      } else {
+        var kt = kw.split(" ");
+        var hits = 0;
+        for (var t = 0; t < qt.length; t++) if (kt.indexOf(qt[t]) !== -1) hits++;
+        if (hits > 0) {
+          s = 17 + (hits / qt.length) * 32 + Math.min(kw.length, 22) * 0.4;
+        } else {
+          var d = lev(q, kw);
+          var maxd = q.length <= 6 ? 2 : 3;
+          if (d <= maxd) s = 27 - d * 4 + Math.min(kw.length, 22) * 0.3;
+        }
+      }
+      if (s > best) best = s;
+    }
+    return best;
+  }
+
+  function rank(query) {
+    var q = norm(query);
+    if (!q) return [];
+    var qt = q.split(" ");
+    return ERRORS.map(function (e) {
+      return { e: e, s: scoreEntry(q, qt, e) };
+    }).sort(function (a, b) { return b.s - a.s; });
+  }
+
+  var THRESHOLD = 32;
+
+  /* ------------------------------------------------------------------
+     Rendering
+  ------------------------------------------------------------------ */
+  var results = document.getElementById("results");
+  var input = document.getElementById("errInput");
+  var inlineErr = document.getElementById("inlineErr");
+  var form = document.getElementById("decodeForm");
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function sevLabel(sev) {
+    return sev === "high" ? "High impact" : sev === "medium" ? "Medium impact" : "Low impact";
+  }
+
+  function confidence(score) {
+    if (score >= 80) return "High";
+    if (score >= 55) return "Medium";
+    return "Low";
+  }
+
+  function chipHtml(text) {
+    return '<button type="button" class="chip" data-ex="' + esc(text) + '">' + esc(text) + "</button>";
+  }
+
+  function relatedChips(entry) {
+    var others = ERRORS.filter(function (x) { return x !== entry; });
+    var pool = [];
+    for (var i = 0; i < others.length && pool.length < 4; i++) {
+      if (others[i].cat === entry.cat) pool.push(others[i]);
+    }
+    for (var j = 0; j < others.length && pool.length < 4; j++) {
+      if (pool.indexOf(others[j]) === -1) pool.push(others[j]);
+    }
+    var html = '<div class="related"><span class="hint">Related</span>';
+    for (var k = 0; k < pool.length; k++) html += chipHtml(pool[k].title);
+    return html + "</div>";
+  }
+
+  function renderMatch(entry, score) {
+    var fixes = "";
+    for (var i = 0; i < entry.fixes.length; i++) fixes += "<li>" + esc(entry.fixes[i]) + "</li>";
+    results.innerHTML =
+      '<article class="result">' +
+        '<div class="rhead">' +
+          '<span class="pill sev-' + entry.sev + '">' + sevLabel(entry.sev) + "</span>" +
+          '<span class="pill cat">' + esc(entry.cat) + "</span>" +
+          '<span class="code">' + esc(entry.code) + "</span>" +
+        "</div>" +
+        "<h2>" + esc(entry.title) + "</h2>" +
+        '<p class="cause"><b>What it means:</b> ' + esc(entry.cause) + "</p>" +
+        '<h3 class="sec">How to fix it</h3>' +
+        '<ol class="fixes">' + fixes + "</ol>" +
+        relatedChips(entry) +
+        '<div class="conf"><span>Match confidence: <b>' + confidence(score) + "</b></span>" +
+        "<span>Category: <b>" + esc(entry.cat) + "</b> · Severity: <b>" + sevLabel(entry.sev) + "</b></span></div>" +
+      "</article>";
+  }
+
+  function renderUnknown(raw, ranked) {
+    var guesses = ranked.slice(0, 3).filter(function (r) { return r.s > 8; });
+    var html =
+      '<article class="unknown">' +
+        "<h2>No confident match for that input</h2>" +
+        '<div class="echo">' + esc(raw) + "</div>" +
+        "<p>That exact wording isn’t in the decoder yet. Try a shorter fragment — for example just <b>“video unavailable”</b>, <b>“audio”</b>, or the bare number <b>403</b>. You can also pick one of the recognized errors below.</p>";
+
+    if (guesses.length) {
+      html += '<h3 class="sec">Closest matches</h3><div class="grid-chips">';
+      for (var i = 0; i < guesses.length; i++) html += chipHtml(guesses[i].e.title);
+      html += "</div>";
+    }
+
+    html += '<h3 class="sec" style="margin-top:16px">All recognized errors</h3><div class="grid-chips">';
+    for (var j = 0; j < ERRORS.length; j++) html += chipHtml(ERRORS[j].title);
+    html += "</div></article>";
+    results.innerHTML = html;
+  }
+
+  function showInlineError(msg) {
+    inlineErr.textContent = msg;
+    inlineErr.classList.add("show");
+  }
+  function clearInlineError() {
+    inlineErr.textContent = "";
+    inlineErr.classList.remove("show");
+  }
+
+  function decode(raw) {
+    var value = String(raw == null ? "" : raw).trim();
+    if (!value) {
+      results.innerHTML = "";
+      showInlineError("Paste a YouTube error message or numeric code first — for example “Video unavailable” or 429.");
+      input.focus();
+      return;
+    }
+    clearInlineError();
+    var ranked = rank(value);
+    var top = ranked[0];
+    if (top && top.s >= THRESHOLD) {
+      renderMatch(top.e, top.s);
+    } else {
+      renderUnknown(value, ranked);
+    }
+  }
+
+  /* ------------------------------------------------------------------
+     Events
+  ------------------------------------------------------------------ */
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    try { decode(input.value); } catch (e) { showInlineError("Something went wrong while decoding. Please try again."); }
+  });
+
+  document.addEventListener("click", function (ev) {
+    var t = ev.target;
+    if (t && t.tagName === "BUTTON" && t.getAttribute("data-ex")) {
+      input.value = t.getAttribute("data-ex");
+      try { decode(input.value); } catch (e) { showInlineError("Something went wrong while decoding. Please try again."); }
+      input.focus();
+      var y = results.getBoundingClientRect().top + window.pageYOffset - 24;
+      window.scrollTo({ top: y < 0 ? 0 : y, behavior: "smooth" });
+    }
+  });
+
+  input.addEventListener("input", function () {
+    if (input.value.trim()) clearInlineError();
+  });
+
+  /* ------------------------------------------------------------------
+     Browse index
+  ------------------------------------------------------------------ */
+  (function buildBrowse() {
+    document.getElementById("errCount").textContent = String(ERRORS.length);
+    var body = document.getElementById("browseBody");
+    var html = "";
+    for (var i = 0; i < ERRORS.length; i++) {
+      var e = ERRORS[i];
+      html += '<div class="browsecard">' +
+        '<div class="bt"><span class="bc">' + esc(e.code) + "</span>" +
+        '<span class="bn">' + esc(e.title) + "</span></div>" +
+        '<p class="bd">' + esc(e.cause) + "</p></div>";
+    }
+    body.innerHTML = html;
+  })();
+})();
+</script>
+</body>
+</html>

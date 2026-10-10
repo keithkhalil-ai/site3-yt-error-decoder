@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://keithkhalil-ai.github.io/site3-yt-error-decoder/sitemap.xml
